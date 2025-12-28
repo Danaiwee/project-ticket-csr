@@ -10,6 +10,7 @@ export async function getLocations(req: Request, res: Response) {
     page: req.query.page ? Number(req.query.page) : 1,
     pageSize: req.query.pageSize ? Number(req.query.pageSize) : 10,
     query: typeof req.query.query === "string" ? req.query.query : undefined,
+    filter: req.query.filter as string | undefined,
   };
 
   const validationResults = await action({

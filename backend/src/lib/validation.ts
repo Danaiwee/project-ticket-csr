@@ -33,8 +33,37 @@ export const PaginatedSearchSchema = z.object({
   page: z.number().min(1, "Page number is required").default(1),
   pageSize: z.number().min(1, "Page size is required").default(10),
   query: z.string().optional(),
+  filter: z.string().optional(),
 });
 
 export const GetLocationSchema = z.object({
   locationId: z.string().min(1, "Location id is required"),
+});
+
+export const CreateBookingSchema = z.object({
+  locationId: z.string().min(1, "Location id is required"),
+  numOfPeople: z
+    .number()
+    .min(1, "At least 1 person is required")
+    .max(50, "Maximum 50 people per booking"),
+  bookingDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
+  totalPrice: z.number().min(0, "Price cannot be negative"),
+  remarks: z.string().max(200, "Remarks too long").optional(),
+});
+
+export const DeleteBookingSchema = z.object({
+  bookingId: z.string().min(1, "Booking id is required"),
+});
+
+export const GetAvailabilitySchema = z.object({
+  locationId: z.string().cuid(),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
+});
+
+export const GetUserBookingsSchema = PaginatedSearchSchema.extend({
+  userId: z.string().min(1, "User id is required"),
 });
