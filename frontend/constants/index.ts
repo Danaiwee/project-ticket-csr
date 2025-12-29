@@ -127,3 +127,16 @@ export const LOCATION_IMAGES: Record<string, string> = {
   "แหล่งน้ำ": "/images/river.jpg",
   "โป่งน้ำพุร้อน": "/images/hot-spring.jpg"
 }
+
+export const LOCATION_PRICES: Record<string, number> = {
+  "ชายหาด": 50,
+  "ซากดึกดำบรรพ์": 80,
+  "ถ้ำ": 100,
+  "ธรณีสัณฐานและภูมิลักษณวรรณา": 60,
+  "น้ำตก": 40,
+  "ภูเขา": 120,
+  "เกาะ": 200,
+  "แก่ง": 70,
+  "แหล่งน้ำ": 30,
+  "โป่งน้ำพุร้อน": 150,
+};

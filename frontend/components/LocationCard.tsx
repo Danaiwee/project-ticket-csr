@@ -12,7 +12,10 @@ const LocationCard = ({ location }: LocationCardProps) => {
   const imageSrc = LOCATION_IMAGES[typeName] || "/images/forest.jpg";
 
   return (
-    <Link href={ROUTES.LOCATION(id)} className="bg-gray-50 w-full max-w-70 shadow-xl">
+    <Link
+      href={ROUTES.LOCATION(id)}
+      className="bg-gray-50 w-full max-w-70 shadow-xl"
+    >
       <article className="w-full flex-col items-center justify-center rounded-2xl border ">
         <Image
           src={imageSrc}
@@ -31,7 +34,7 @@ const LocationCard = ({ location }: LocationCardProps) => {
           <h1 className="h-11 text-md font-bold text-gray-700 font-kanit mt-1">
             {name}
           </h1>
-          <p className="text-sm font-kanit mt-3 text-gray-500">{province}</p>
+          <p className="text-sm font-kanit mt-3 text-gray-500">{typeName}</p>
         </div>
       </article>
     </Link>

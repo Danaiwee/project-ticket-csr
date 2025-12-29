@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
-
 interface StateSkeletonProps {
   image: {
     light: string;
@@ -49,7 +48,7 @@ const StateSkeleton = ({
 
       {button && (
         <Link href={button.href}>
-          <Button className="paragraph-medium mt-5 min-h-[46px] rounded-lg bg-primary-500 px-4 py-3 text-light-900 hover:bg-primary-500">
+          <Button className="paragraph-medium mt-5 min-h-11.5 rounded-lg bg-primary-500 px-4 py-3 text-light-900 hover:bg-primary-500">
             {button.text}
           </Button>
         </Link>
