@@ -12,9 +12,9 @@ const Logout = () => {
   return (
     <Button variant="ghost" className="hover:bg-none!">
       {isLoading ? (
-        <Loader2 className="size-4 animate-spin" />
+        <Loader2 className="size-5 animate-spin" />
       ) : (
-        <LogOutIcon className="size-4 text-gray-500" />
+        <LogOutIcon className="size-5 text-gray-500" />
       )}
     </Button>
   );

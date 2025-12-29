@@ -16,7 +16,7 @@ const NavLinks = ({ user }: NavLinksProps) => {
   const isAdmin = user?.role === "ADMIN" || false;
 
   return (
-    <div className="hidden md:flex items-center gap-5 font-kanit">
+    <div className="hidden md:flex items-center gap-5 font-kanit text-lg">
       {NAV_ITEMS.map((item) => {
         if (item.adminOnly && !isAdmin) return null;
         if (item.login && !user) return null;

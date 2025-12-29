@@ -3,7 +3,7 @@ export const ROUTES = {
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
   DASHBOARD: "/admin",
-  BOOKING: "/booking",
+  BOOKING: "/my-booking",
 
   LOCATION: (id: string) => `/location/${id}`,
 };
