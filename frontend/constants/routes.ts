@@ -6,4 +6,5 @@ export const ROUTES = {
   BOOKING: "/my-booking",
 
   LOCATION: (id: string) => `/location/${id}`,
+  ADMIN_LOCATION: (id: string) => `/admin/${id}`,
 };

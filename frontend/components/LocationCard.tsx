@@ -5,17 +5,17 @@ import Link from "next/link";
 
 interface LocationCardProps {
   location: LocationData;
+  isAdmin?: boolean;
 }
 
-const LocationCard = ({ location }: LocationCardProps) => {
+const LocationCard = ({ location, isAdmin = false }: LocationCardProps) => {
   const { id, name, province, typeName } = location;
   const imageSrc = LOCATION_IMAGES[typeName] || "/images/forest.jpg";
 
+  const href = isAdmin ? ROUTES.ADMIN_LOCATION(id) : ROUTES.LOCATION(id);
+
   return (
-    <Link
-      href={ROUTES.LOCATION(id)}
-      className="bg-gray-50 w-full max-w-70 shadow-xl"
-    >
+    <Link href={href} className="bg-gray-50 w-full max-w-70 shadow-xl">
       <article className="w-full flex-col items-center justify-center rounded-2xl border ">
         <Image
           src={imageSrc}

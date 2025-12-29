@@ -27,7 +27,7 @@ const Pagination = ({ page = 1, isNext }: PaginationProps) => {
   };
 
   return (
-    <div className="flex w-full items-center justify-center gap-3 mt-5">
+    <div className="flex w-full items-center justify-center gap-3 mt-10">
       <Button
         className="flex h-10 w-20 items-center justify-center gap-2 border bg-blue-gradient"
         onClick={() => handleNavigation("prev")}

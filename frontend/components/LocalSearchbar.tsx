@@ -46,7 +46,7 @@ const LocalSearchbar = ({ route, placeholder }: LocalSearchbarProps) => {
   }, [searchQuery, searchParams, router, route, pathname]);
 
   return (
-    <div className="bg-gray-50 flex min-h-16 grow items-center gap-4 rounded-[10px] px-4 border shadow-2xl">
+    <div className="bg-gray-50 flex min-h-16 grow items-center gap-4 rounded-[10px] px-4 border shadow-xl">
       <Search className="size-6 text-gray-500" />
 
       <Input
