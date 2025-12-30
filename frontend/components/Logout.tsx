@@ -21,6 +21,7 @@ const Logout = () => {
         toast("Success", { description: "ออกจากระบบสำเร็จ" });
 
         router.push(ROUTES.HOME);
+        router.refresh();
         return;
       }
 

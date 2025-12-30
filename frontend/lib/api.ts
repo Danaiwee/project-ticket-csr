@@ -20,10 +20,7 @@ export const api = {
       fetchHandler(`${API_BASE_URL}/auth/logout`, {
         method: "POST",
       }),
-  },
-
-  users: {
-    getLoggedInUser: () => fetchHandler(`${API_BASE_URL}/users/get-user`),
+    getLoggedInUser: () => fetchHandler(`${API_BASE_URL}/auth/get-user`),
   },
 
   locations: {
