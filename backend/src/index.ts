@@ -15,7 +15,12 @@ const PORT = process.env.PORT;
 
 app.use(express.json({ limit: "4mb" }));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/locations", locationRoutes);

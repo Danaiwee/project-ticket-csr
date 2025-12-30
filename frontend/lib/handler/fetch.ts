@@ -33,6 +33,7 @@ export async function fetchHandler<T>(
     ...restOptions,
     headers,
     signal: controller.signal,
+    credentials: "include",
   };
 
   try {
