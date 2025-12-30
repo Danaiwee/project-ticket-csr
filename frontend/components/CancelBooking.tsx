@@ -6,6 +6,17 @@ import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
 
 interface CancelBookingProps {
   bookingId: string;
@@ -45,13 +56,31 @@ const CancelBooking = ({ bookingId }: CancelBookingProps) => {
   };
 
   return (
-    <Button
-      className="p-ภ bg-red-400 hover:bg-red-500 text-white rounded-lg text-md font-bold"
-      onClick={handleDeleteBooking}
-      disabled={isLoading}
-    >
-      {isLoading ? <Loader2 className="size-4 animate-spin" /> : "ยกเลิกการจอง"}
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button className="p-ภ bg-red-400 hover:bg-red-500 text-white rounded-lg text-md font-bold">
+          ยกเลิกการจอง
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>คุณต้องการที่จะยกเลิกการจอง?</AlertDialogTitle>
+          <AlertDialogDescription>
+            กรุณากดยืนยันหากต้องการที่จะยกเลิกการจอง
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
+          <AlertDialogAction
+            onClick={handleDeleteBooking}
+            disabled={isLoading}
+            className="bg-red-400 text-white! font-semibold"
+          >
+            {isLoading ? <Loader2 className="size-4 animate-spin" /> : "ยืนยัน"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 
