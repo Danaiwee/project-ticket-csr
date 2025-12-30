@@ -6,7 +6,6 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/constants/routes";
 
 const Logout = () => {
   const router = useRouter();
@@ -20,7 +19,6 @@ const Logout = () => {
       if (res.success) {
         toast("Success", { description: "ออกจากระบบสำเร็จ" });
 
-        router.push(ROUTES.HOME);
         router.refresh();
         return;
       }

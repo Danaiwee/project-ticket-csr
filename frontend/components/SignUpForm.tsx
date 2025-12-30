@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -18,6 +18,10 @@ import { ROUTES } from "@/constants/routes";
 
 const SignUpForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
@@ -37,7 +41,9 @@ const SignUpForm = () => {
       if (res.success) {
         toast("Success", { description: "ลงทะเบียนและเข้าสู่ระบบสำเร็จ" });
 
-        router.push(ROUTES.HOME);
+        const destination = callbackUrl || ROUTES.HOME;
+
+        router.push(destination);
         return;
       }
 

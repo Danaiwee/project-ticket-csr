@@ -47,6 +47,20 @@ declare global {
     totalCount: number;
     isNext: boolean;
   }
+
+  interface AvailableBookingResponse {
+    locationId: string;
+    available: number;
+    date: string;
+    isFull: boolean;
+  }
+
+  interface CreateBookingParams {
+    numOfPeople: number;
+    bookingDate: string;
+    totalPrice: number;
+    remarks?: string;
+  }
 }
 
 export {};

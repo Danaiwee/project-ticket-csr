@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -18,6 +18,10 @@ import { ROUTES } from "@/constants/routes";
 
 const SignInForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -35,7 +39,9 @@ const SignInForm = () => {
       if (res.success) {
         toast("Success", { description: "เข้าสู่ระบบสำเร็จ" });
 
-        router.push(ROUTES.HOME);
+        const destination = callbackUrl || ROUTES.HOME;
+
+        router.push(destination);
         return;
       }
 
@@ -103,7 +109,11 @@ const SignInForm = () => {
           Don&apos; t have an account?
         </p>
         <Link
-          href={"/sign-up"}
+          href={
+            callbackUrl
+              ? `/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`
+              : "/sign-up"
+          }
           className="text-[14px] cursor-pointer font-medium text-blue-600"
         >
           Sign up

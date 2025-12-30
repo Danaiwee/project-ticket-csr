@@ -62,5 +62,16 @@ export const api = {
       fetchHandler(`${API_BASE_URL}/booking/${id}`, {
         method: "DELETE",
       }),
+
+    getAvaliable: (id: string, date: string) =>
+      fetchHandler(
+        `${API_BASE_URL}/booking/check-available/${id}?date=${date}`
+      ),
+
+    createBooking: (locationId: string, params: CreateBookingParams) =>
+      fetchHandler(`${API_BASE_URL}/booking/create/${locationId}`, {
+        method: "POST",
+        body: JSON.stringify(params),
+      }),
   },
 };
