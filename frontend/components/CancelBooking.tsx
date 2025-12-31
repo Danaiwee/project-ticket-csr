@@ -34,7 +34,7 @@ const CancelBooking = ({ bookingId }: CancelBookingProps) => {
       )) as ActionResponse;
 
       if (res.success) {
-        toast("Success", { description: "ยกเลิกการจองสำเร็จ" });
+        toast("สำเร็จ", { description: "ยกเลิกการจองสำเร็จ" });
 
         router.refresh();
         return;
@@ -58,7 +58,7 @@ const CancelBooking = ({ bookingId }: CancelBookingProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="p-ภ bg-red-400 hover:bg-red-500 text-white rounded-lg text-md font-bold">
+        <Button className="p-4 bg-red-400 hover:bg-red-500 text-white rounded-lg text-md font-bold">
           ยกเลิกการจอง
         </Button>
       </AlertDialogTrigger>

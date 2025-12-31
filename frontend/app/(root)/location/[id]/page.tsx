@@ -1,4 +1,4 @@
-import Booking from "@/components/Booking";
+import BookingForm from "@/components/BookingForm";
 import MapWrapper from "@/components/MapWrapper";
 import StateSkeleton from "@/components/StateSkeleton";
 import { LOCATION_IMAGES } from "@/constants";
@@ -97,7 +97,7 @@ const LocationPage = async ({ params }: RouteParams) => {
         </div>
 
         <div className="w-full sm:w-fit flex items-center justify-end">
-          <Booking location={location} user={user} />
+          <BookingForm location={location} user={user} />
         </div>
       </section>
       <section className="mt-10 flex flex-col gap-2 font-kanit max-w-2xl w-full">

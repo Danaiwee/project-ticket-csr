@@ -108,7 +108,7 @@ const SignUpForm = () => {
               {isLoading ? (
                 <>
                   <Loader2 size={20} className="animate-spin" /> &nbsp;
-                  กำลังโหลด
+                  กำลังโหลด...
                 </>
               ) : (
                 "ลงทะเบียน"

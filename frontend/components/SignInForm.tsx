@@ -112,7 +112,7 @@ const SignInForm = () => {
               ? `/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`
               : "/sign-up"
           }
-          className="text-[14px] cursor-pointer font-medium text-blue-600 font-semibold"
+          className="text-[14px] cursor-pointer text-blue-600 font-semibold"
         >
           ลงทะเบียน
         </Link>

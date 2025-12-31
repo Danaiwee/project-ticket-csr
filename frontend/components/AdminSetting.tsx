@@ -67,7 +67,7 @@ function AdminSetting({ locationId, limitBooking }: AdminSettingProps) {
       throw new Error(res.error?.message || "เกิดข้อผิดพลาด");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast("เกิดข้อผิดพลาด", {
+      toast("ขออภัย", {
         description: error.message || "ระบบไม่สามารถอัพเดทข้อมูลนี้",
       });
       console.log(error);
@@ -78,12 +78,18 @@ function AdminSetting({ locationId, limitBooking }: AdminSettingProps) {
 
   return (
     <div className="flex flex-col gap-3">
+      <label
+        htmlFor="selected-date"
+        className="text-md font-semibold text-gray-700 flex"
+      >
+        กรุณาเลือกวันที่
+      </label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            id="date"
-            className="w-64 justify-between font-normal py-6 text-md font-kanit"
+            id="selected-date"
+            className="w-64 justify-between font-normal py-6 text-md font-kanit -mt-0.5"
           >
             {format(date, "d MMMM yyyy", { locale: th })}
             <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
@@ -94,15 +100,17 @@ function AdminSetting({ locationId, limitBooking }: AdminSettingProps) {
         </PopoverContent>
       </Popover>
 
-      <div className="flex items-center justify-end font-kanit">
+      <div className="flex items-center justify-end font-kanit mt-3">
         <form className="flex items-center gap-1" onSubmit={handleUpdateLimit}>
           <label
             className="text-md text-gray-700 font-semibold"
-            id="limitNumber"
+            htmlFor="limitNumber"
           >
             จำนวนสูงสุดต่อวัน:
           </label>
           <Input
+            id="limitNumber"
+            name="limitNumber"
             type="number"
             value={limitNumber}
             className="text-md py-4 w-20"

@@ -41,7 +41,7 @@ interface BookingProps {
   user: User | null | undefined;
 }
 
-const Booking = ({ location, user }: BookingProps) => {
+const BookingForm = ({ location, user }: BookingProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -135,10 +135,10 @@ const Booking = ({ location, user }: BookingProps) => {
         return;
       }
 
-      throw new Error(res.error?.message || "เกิดข้อผิดพลาด");
+      throw new Error(res.error?.message || "เกิดข้อผิดพลาดขึ้น กรุณาลองใหม่อีกครั้งภายหลัง");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast("เกิดข้อผิดพลาด", {
+      toast("ขออภัย", {
         description:
           error?.message || "ไม่สามารถเชื่อมต่อกับระบบได้ กรุณาลองใหม่ภายหลัง",
       });
@@ -199,13 +199,17 @@ const Booking = ({ location, user }: BookingProps) => {
               name="bookingDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-kanit text-gray-600 text-lg">
+                  <FormLabel
+                    className="font-kanit text-gray-600 text-lg"
+                    htmlFor="booking-date-button"
+                  >
                     วันที่ต้องการเข้าชม
                   </FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
+                          id="booking-date-button"
                           variant={"outline"}
                           className={cn(
                             "w-full pl-3 text-left font-normal py-6 h-12",
@@ -275,7 +279,10 @@ const Booking = ({ location, user }: BookingProps) => {
               name="totalPrice"
               render={({ field }) => (
                 <FormItem className="mt-4">
-                  <FormLabel className="font-kanit text-gray-600 text-lg">
+                  <FormLabel
+                    className="font-kanit text-gray-600 text-lg"
+                    htmlFor="totalPrice"
+                  >
                     ราคารวมทั้งสิ้น (บาท)
                   </FormLabel>
                   <FormControl>
@@ -285,6 +292,7 @@ const Booking = ({ location, user }: BookingProps) => {
                         readOnly
                         {...field}
                         className="font-kanit bg-gray-50 font-bold text-sky-600 h-12 text-lg!"
+                        id="totalPrice"
                       />
                       <span className="absolute right-3 top-2 text-gray-400 text-lg">
                         บาท
@@ -322,7 +330,10 @@ const Booking = ({ location, user }: BookingProps) => {
               disabled={isFull || isLoading}
             >
               {isLoading ? (
-                <Loader2 className="size-5 animate-spin" />
+                <>
+                  <Loader2 className="size-5 animate-spin" />
+                  กำลังโหลด...
+                </>
               ) : (
                 "ยืนยันการจอง"
               )}
@@ -334,4 +345,4 @@ const Booking = ({ location, user }: BookingProps) => {
   );
 };
 
-export default Booking;
+export default BookingForm;

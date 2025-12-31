@@ -142,7 +142,7 @@ export const LOCATION_PRICES: Record<string, number> = {
 
 export const BOOKINGS = [
   {
-    id: "bk_001",
+    id: "kmsjklfjsiofj",
     numOfPeople: 2,
     bookingDate: new Date("2025-12-30"),
     totalPrice: 200.0,
