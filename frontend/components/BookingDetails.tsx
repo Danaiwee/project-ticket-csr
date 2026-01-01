@@ -9,69 +9,63 @@ import DataRenderer from "./DataRenderer";
 import { DEFAULT_EMPTY } from "@/constants/empty";
 import BookingCard from "./BookingCard";
 import Pagination from "./Pagination";
-import { Loader2 } from "lucide-react";
+import Loading from "./Loading";
 
 const BookingDetails = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const page = searchParams.get("page") || 1;  
-  const {user, loading: authLoading} = useAuth();  
+  const page = searchParams.get("page") || 1;
+  const { user, loading: authLoading } = useAuth();
 
-  const [bookingsData, setbookingsData] = useState<Booking[] | null | undefined>(null);
+  const [bookingsData, setbookingsData] = useState<Booking[] | null>(null);
   const [success, setSuccess] = useState(false);
   const [isNext, setIsNext] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [dataError, setDataError] = useState<any>(null);
+  const [dataError, setDataError] = useState<ErrorResponse | null | undefined>(
+    null
+  );
   const [totalCount, setTotalCount] = useState(0);
 
   const fetchBooking = async () => {
-    if(!user) return;
+    if (!user) return;
     setIsLoading(true);
     try {
-        const { success, data, error } = await api.booking.getUserBookings({ 
-            page: Number(page) || 1,
-            pageSize: 10
-        }) as ActionResponse<BookingsResponse>;
+      const { success, data, error } = (await api.booking.getUserBookings({
+        page: Number(page) || 1,
+        pageSize: 10,
+      })) as ActionResponse<BookingsResponse>;
 
-        if(success) {
-            setbookingsData(data?.bookings);
-            setIsNext(data?.isNext || false);
-            setTotalCount(data?.totalCount || 0);
-            setSuccess(true);
-        } else {
-            setDataError(error);
-        }
+      if (success) {
+        setbookingsData(data?.bookings || []);
+        setIsNext(data?.isNext || false);
+        setTotalCount(data?.totalCount || 0);
+        setSuccess(true);
+      } else {
+        setDataError(error);
+      }
     } catch (err) {
-        console.log(err);
+      console.log(err);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
-};
-  
+  };
+
   useEffect(() => {
     if (!authLoading && !user) {
       router.push(ROUTES.SIGN_IN);
     }
-  },[user, authLoading, router])
+  }, [user, authLoading, router]);
 
   useEffect(() => {
     fetchBooking();
-  }, [user, page])
+  }, [user, page]);
 
-  if (authLoading || isLoading) {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-100 w-full">
-      <Loader2 className="size-10 animate-spin text-sky-500" />
-      <p className="mt-2 text-gray-500">กำลังโหลดข้อมูล...</p>
-    </div>
-  );
-}
+  if (authLoading || isLoading) return <Loading />;
 
   return (
     <>
-        <h1 className="text-md text-sky-500 flex justify-end font-semibold pr-4 sm:pr-0">
+      <h1 className="text-md text-sky-500 flex justify-end font-semibold pr-4 sm:pr-0">
         {`คุณมีรายการจองทั้งหมด ${totalCount || 0} รายการ`}
       </h1>
       <div className="w-full max-w-4xl mt-10">
@@ -83,7 +77,11 @@ const BookingDetails = () => {
           render={(bookingsData) => (
             <div className="flex flex-col w-full max-w-4xl gap-5 px-4">
               {bookingsData.map((booking: Booking) => (
-                <BookingCard key={booking.id} booking={booking} onSuccess={fetchBooking} />
+                <BookingCard
+                  key={booking.id}
+                  booking={booking}
+                  onSuccess={fetchBooking}
+                />
               ))}
             </div>
           )}
@@ -92,7 +90,7 @@ const BookingDetails = () => {
         <Pagination isNext={isNext || false} page={Number(page) || 1} />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default BookingDetails
+export default BookingDetails;

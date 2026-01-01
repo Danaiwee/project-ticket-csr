@@ -5,10 +5,7 @@ import { DEFAULT_EMPTY, DEFAULT_ERROR } from "@/constants/empty";
 
 interface DataRendererProps<T> {
   success?: boolean;
-  error?: {
-    message?: string | null;
-    details?: Record<string, string[]> | null;
-  };
+  error?: ErrorResponse | null | undefined;
   data: T[] | null | undefined;
   empty: {
     title: string;

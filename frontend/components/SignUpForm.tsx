@@ -126,7 +126,11 @@ const SignUpForm = () => {
           หากคุณมีบัญชีอยู่แล้ว ?
         </p>
         <Link
-          href={"/sign-in"}
+          href={
+      callbackUrl 
+        ? `/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}` 
+        : "/sign-in"
+    }
           className="text-[14px] cursor-pointer text-blue-600 font-semibold"
         >
           เข้าสู่ระบบ

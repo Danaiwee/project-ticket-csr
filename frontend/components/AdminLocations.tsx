@@ -4,12 +4,12 @@ import { DEFAULT_EMPTY } from "@/constants/empty";
 import { ROUTES } from "@/constants/routes";
 import { useAuth } from "@/context/AuthContext";
 import { api } from "@/lib/api";
-import { Loader2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import DataRenderer from "./DataRenderer";
 import LocationCard from "./LocationCard";
 import Pagination from "./Pagination";
+import Loading from "./Loading";
 
 const AdminLocations = () => {
   const router = useRouter();
@@ -62,17 +62,11 @@ const AdminLocations = () => {
 
   useEffect(() => {
     fetchLocations();
-  }, [user, page]);
+  }, [user, page, query]);
 
-
-  if (authLoading || isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-100 w-full">
-        <Loader2 className="size-10 animate-spin text-sky-500" />
-        <p className="mt-2 text-gray-500">กำลังโหลดข้อมูล...</p>
-      </div>
-    );
-  }
+  if (authLoading || isLoading) return <Loading />;
+  if (!user || user.role !== "ADMIN") return null;
+  if (user?.role !== "ADMIN") router.push(ROUTES.HOME);
 
   return (
     <div className="mt-10 -space-y-4">
