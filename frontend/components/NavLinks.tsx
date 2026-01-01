@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Logout from "./Logout";
 import { NAV_ITEMS } from "@/constants";
 
+
 interface NavLinksProps {
   user: User | null | undefined;
 }

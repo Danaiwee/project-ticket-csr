@@ -1,8 +1,7 @@
 export async function getSession(cookie: string): Promise<User | null> {
   try {
-    console.log("cookie in getSession", cookie);
-
-    const response = await fetch(
+    
+const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/get-user`,
       {
         headers: { Cookie: cookie },

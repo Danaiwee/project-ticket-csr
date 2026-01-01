@@ -15,10 +15,12 @@ import { SignInSchema } from "@/lib/validation";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { ROUTES } from "@/constants/routes";
+import { useAuth } from "@/context/AuthContext";
 
 const SignInForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const {refreshUser} = useAuth();
 
   const callbackUrl = searchParams.get("callbackUrl");
 
@@ -39,6 +41,7 @@ const SignInForm = () => {
       if (res.success) {
         toast("สำเร็จ", { description: "เข้าสู่ระบบสำเร็จ" });
 
+        await refreshUser();
         const destination = callbackUrl || ROUTES.HOME;
 
         router.push(destination);

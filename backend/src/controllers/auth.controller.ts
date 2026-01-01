@@ -73,7 +73,7 @@ export async function signIn(req: Request, res: Response) {
 
     await generateTokenAndSetCookie(user.id.toString(), res);
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, data: user });
   } catch (error) {
     return handleError(error, res);
   }

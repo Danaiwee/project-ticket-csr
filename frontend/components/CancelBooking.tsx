@@ -20,9 +20,10 @@ import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
 
 interface CancelBookingProps {
   bookingId: string;
+  onSuccess: () => void; 
 }
 
-const CancelBooking = ({ bookingId }: CancelBookingProps) => {
+const CancelBooking = ({ bookingId, onSuccess }: CancelBookingProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,6 +38,7 @@ const CancelBooking = ({ bookingId }: CancelBookingProps) => {
         toast("สำเร็จ", { description: "ยกเลิกการจองสำเร็จ" });
 
         router.refresh();
+        onSuccess();
         return;
       }
 

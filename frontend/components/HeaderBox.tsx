@@ -1,11 +1,17 @@
+"use client"
+
+import { useAuth } from "@/context/AuthContext";
+
 interface HeaderBoxProps {
   title: string;
   subtext: string;
   type?: string;
-  user?: User | null;
 }
 
-const HeaderBox = ({ type, title, user = null, subtext }: HeaderBoxProps) => {
+const HeaderBox = ({ type, title, subtext }: HeaderBoxProps) => {
+  const {user, loading} = useAuth();
+
+  if(loading) return null;
   return (
     <div className="flex flex-col gap-1">
       <h1 className="text-3xl lg:text-5xl font-semibold text-gray-900">

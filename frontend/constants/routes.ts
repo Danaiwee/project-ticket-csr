@@ -3,7 +3,7 @@ export const ROUTES = {
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
   DASHBOARD: "/admin",
-  BOOKING: "/my-booking",
+  BOOKING: "/user-bookings",
 
   LOCATION: (id: string) => `/location/${id}`,
   ADMIN_LOCATION: (id: string) => `/admin/${id}`,

@@ -9,9 +9,10 @@ import CancelBooking from "./CancelBooking";
 
 interface BookingProps {
   booking: Booking;
+  onSuccess: () => void
 }
 
-const BookingCard = ({ booking }: BookingProps) => {
+const BookingCard = ({ booking, onSuccess }: BookingProps) => {
   const { id, location, bookingDate, numOfPeople, totalPrice, remarks } =
     booking;
   const { name } = location;
@@ -83,7 +84,7 @@ const BookingCard = ({ booking }: BookingProps) => {
             </div>
 
             <div className="flex-1 w-full flex items-center justify-end mt-5 pr-4">
-              <CancelBooking bookingId={id} />
+              <CancelBooking bookingId={id} onSuccess={onSuccess} />
             </div>
           </div>
         </AccordionContent>

@@ -44,7 +44,7 @@ export const api = {
   },
 
   booking: {
-    getUserBookings: (params: GetUserBookingsParams, options: any) => {
+    getUserBookings: (params: GetUserBookingsParams, options?: any) => {
       const searchParams = new URLSearchParams();
       if (params?.page) searchParams.append("page", params.page.toString());
       if (params?.pageSize)
@@ -76,7 +76,7 @@ export const api = {
   },
 
   admin: {
-    getLocationBookings: (params: GetLocationBookingsParams, options: any) => {
+    getLocationBookings: (params: GetLocationBookingsParams, options?: any) => {
       const { locationId, date, page, pageSize } = params;
 
       const urlParams = new URLSearchParams({

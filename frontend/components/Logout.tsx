@@ -6,10 +6,12 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 const Logout = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const {setUser} = useAuth();
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -19,6 +21,7 @@ const Logout = () => {
       if (res.success) {
         toast("Success", { description: "ออกจากระบบสำเร็จ" });
 
+        setUser(null)
         router.refresh();
         return;
       }

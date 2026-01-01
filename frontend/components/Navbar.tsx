@@ -1,14 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import NavLinks from "./NavLinks";
 import Link from "next/link";
 import { ROUTES } from "@/constants/routes";
 import MobileNavbar from "./MobileNavbar";
+import { useAuth } from "@/context/AuthContext";
 
-interface NavbarProps {
-  user: User | null | undefined;
-}
 
-const Navbar = ({ user }: NavbarProps) => {
+const Navbar = () => {
+  const {user, loading} = useAuth();
+  if(loading) return null;
+
   return (
     <section className="w-full flex justify-between items-center max-w-7xl mx-auto">
       <Link href={ROUTES.HOME} className="flex items-center gap-1">

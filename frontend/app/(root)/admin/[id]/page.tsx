@@ -1,19 +1,12 @@
+import AdminLocationBookings from "@/components/AdminLocationBookings";
 import AdminSetting from "@/components/AdminSetting";
-import BookingCard from "@/components/BookingCard";
-import DataRenderer from "@/components/DataRenderer";
-import Pagination from "@/components/Pagination";
 import StateSkeleton from "@/components/StateSkeleton";
 import { LOCATION_IMAGES } from "@/constants";
 import { DEFAULT_EMPTY } from "@/constants/empty";
-import { ROUTES } from "@/constants/routes";
 import { api } from "@/lib/api";
-import { getSession } from "@/lib/handler/session";
-import { formatAdminDate } from "@/lib/utils";
 import { format } from "date-fns";
 import { BadgeCheck, Map, MapPin } from "lucide-react";
-import { cookies } from "next/headers";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }: RouteParams) {
   const { id } = await params;
@@ -27,19 +20,8 @@ export async function generateMetadata({ params }: RouteParams) {
   };
 }
 
-const AdminBookingPage = async ({ params, searchParams }: RouteParams) => {
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore.toString();
+const AdminBookingPage = async ({ params }: RouteParams) => {
   const { id: locationId } = await params;
-  const { date, page, pageSize } = await searchParams;
-
-  const dateData = date || format(new Date(), "yyyy-MM-dd");
-
-  const authUser = await getSession(cookieHeader);
-  if (!authUser) redirect(ROUTES.SIGN_IN);
-
-  const isAdmin = authUser.role === "ADMIN";
-  if (!isAdmin) redirect(ROUTES.HOME);
 
   const { success, data } = (await api.locations.getLocation(
     locationId
@@ -62,22 +44,6 @@ const AdminBookingPage = async ({ params, searchParams }: RouteParams) => {
   const { name, typeName, province, district, importance, limitBooking } =
     location;
   const imageSrc = LOCATION_IMAGES[typeName] || "/images/forest.jpg";
-  const formattedDate = formatAdminDate(dateData);
-
-  const { success: successBookingData, data: bookingsData } =
-    (await api.admin.getLocationBookings(
-      {
-        page: Number(page) || 1,
-        pageSize: Number(pageSize) || 10,
-        date: dateData,
-        locationId,
-      },
-      { headers: { Cookie: cookieHeader } }
-    )) as ActionResponse<AdminLocationBookingsResponse>;
-
-  const { bookings, isNext } = bookingsData || {};
-
-  const numberOfBookings = bookings?.length;
 
   return (
     <main className="w-full max-w-7xl mt-16 mx-auto px-4">
@@ -120,34 +86,7 @@ const AdminBookingPage = async ({ params, searchParams }: RouteParams) => {
         </div>
       </section>
 
-      <section className=" mt-10 flex flex-col gap-2 font-kanit w-full">
-        <div className="flex flex-col sm:flex-row gap-2 sm:items-center justify-between w-full">
-          <h1 className="text-xl text-gray-500 font-semibold">
-            {`รายการจองสำหรับวันที่: ${formattedDate}`}
-          </h1>
-
-          <p className="text-lg text-sky-600">
-            {`จำนวนการจองทั้งหมด ${numberOfBookings}/${limitBooking} ที่`}
-          </p>
-        </div>
-      </section>
-
-      <section className="w-full max-4xl mt-5 sm:mt-20">
-        <DataRenderer
-          success={successBookingData}
-          data={bookings}
-          empty={DEFAULT_EMPTY}
-          render={(bookings) => (
-            <div className="flex flex-col w-full max-w-4xl gap-5 px-4">
-              {bookings.map((booking: Booking) => (
-                <BookingCard key={booking.id} booking={booking} />
-              ))}
-            </div>
-          )}
-        />
-
-        <Pagination isNext={isNext || false} page={Number(page) || 1} />
-      </section>
+      <AdminLocationBookings limitBooking={limitBooking} />
     </main>
   );
 };
