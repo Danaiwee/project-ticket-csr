@@ -15,6 +15,7 @@ export async function protectRoute(
 ) {
   try {
     const accessToken = req.cookies.accessToken;
+    console.log("AccessToken in protectRoute", accessToken);
     if (!accessToken) throw new Error("Unauthorized - no accessToken provided");
 
     const decoded = jwt.verify(

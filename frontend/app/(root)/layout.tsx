@@ -7,6 +7,7 @@ import { getSession } from "@/lib/handler/session";
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
+  console.log("cookie",cookieHeader);
 
   const authUser = await getSession(cookieHeader);
 
