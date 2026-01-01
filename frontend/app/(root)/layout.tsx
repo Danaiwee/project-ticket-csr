@@ -6,11 +6,11 @@ import { getSession } from "@/lib/handler/session";
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const cookieStore = await cookies();
-  
   const cookieHeader = cookieStore.toString();
-  console.log("cookie",cookieHeader);
+  
+  console.log("cookie", cookieHeader);
 
-  const authUser = await getSession(cookieStore);
+  const authUser = await getSession(cookieHeader);
 
   return (
     <main className="w-full min-h-screen flex flex-col">

@@ -1,27 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export async function getSession(cookieStore: any): Promise<User | null> {
+export async function getSession(cookie: string): Promise<User | null> {
   try {
-    console.log("Cookie in getSession", cookieStore);
-
-    const allCookies = cookieStore
-      .getAll()
-      .map((c: any) => `${c.name}=${c.value}`)
-      .join("; ");
+    console.log("cookie in getSession", cookie);
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/get-user`,
       {
-        headers: {
-          Cookie: allCookies,
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
+        headers: { Cookie: cookie },
+        credentials: "include",
       }
     );
 
-    if (!response.ok) return null;
+    if (!response.ok) return null; // ถ้า 401 หรือ 500 ให้คืน null
 
-    return await response.json();
+    const authUser = await response.json();
+
+    return authUser;
   } catch (error) {
     console.error("Session fetch error:", error);
     return null;
