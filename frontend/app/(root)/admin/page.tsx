@@ -15,8 +15,10 @@ export const metadata: Metadata = {
 const AdminPage = async () => {
   const cookieStore = await cookies();
   const cookieString = cookieStore.toString();
+  console.log("cookie: ", cookieString)
 
   const authUser = await getSession(cookieString);
+  console.log("authUser", authUser);
 
   if (!authUser || authUser.role !== "ADMIN") {
     redirect(ROUTES.HOME);
