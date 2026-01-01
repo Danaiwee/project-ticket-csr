@@ -1,28 +1,27 @@
+"use client";
+
 import AdminLocations from "@/components/AdminLocations";
 import HeaderBox from "@/components/HeaderBox";
+import Loading from "@/components/Loading";
 import LocalSearchbar from "@/components/LocalSearchbar";
 import { ROUTES } from "@/constants/routes";
-import { getSession } from "@/lib/handler/session";
-import { Metadata } from "next";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export const metadata: Metadata = {
-  title: "TicketSpace | Admin",
-  description: "ดูรายการและจัดการการจองสถานทีท่องเที่ยวทั้งหมด",
-};
+const AdminPage = () => {
+  const router = useRouter();
+  const { user, loading } = useAuth();
 
-const AdminPage = async () => {
-  const cookieStore = await cookies();
-  const cookieString = cookieStore.toString();
-  console.log("cookie: ", cookieString)
+  useEffect(() => {
+    if (!loading && user?.role !== "ADMIN") {
+      router.push(ROUTES.HOME);
+    }
+  }, [user, loading, router]);
 
-  const authUser = await getSession(cookieString);
-  console.log("authUser", authUser);
+  if (loading) return <Loading />;
 
-  if (!authUser || authUser.role !== "ADMIN") {
-    redirect(ROUTES.HOME);
-  }
+  if (user?.role !== "ADMIN") return null;
   return (
     <section className="w-full mx-auto max-w-7xl">
       <div className="flex h-full w-full flex-col gap-8 mt-14 font-kanit">
