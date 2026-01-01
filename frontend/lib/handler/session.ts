@@ -1,19 +1,25 @@
 export async function getSession(cookie: string): Promise<User | null> {
   try {
-    
-const response = await fetch(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/get-user`,
       {
-        headers: { Cookie: cookie },
-        credentials: "include",
+        method: "GET",
+        headers: {
+          Cookie: cookie,
+          "Content-Type": "application/json",
+        },
+        // สำคัญ: ป้องกันไม่ให้ Next.js แคชข้อมูล User ข้ามคนกัน
+        cache: "no-store",
       }
     );
 
-    if (!response.ok) return null; // ถ้า 401 หรือ 500 ให้คืน null
+    if (!response.ok) return null;
 
-    const authUser = await response.json();
+    const result = await response.json();
 
-    return authUser;
+    // สมมติว่า API ของคุณคืนค่าเป็น { success: true, data: { ...user } }
+    // ต้องตรวจสอบโครงสร้างที่ Backend ส่งมาให้ดีครับ
+    return result.data || result;
   } catch (error) {
     console.error("Session fetch error:", error);
     return null;

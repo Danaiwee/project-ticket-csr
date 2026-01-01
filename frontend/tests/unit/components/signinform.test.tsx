@@ -1,10 +1,11 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { mockRouter, mockToast, resetAllMocks } from "@/tests/mocks";
 import { api } from "@/lib/api";
 import { ROUTES } from "@/constants/routes";
 import SignInForm from "@/components/SignInForm";
+import { useAuth } from "@/context/AuthContext";
 
 const user = userEvent.setup();
 
@@ -87,6 +88,17 @@ describe("signIn Form Component", () => {
 
   describe("Form Success Handling", () => {
     it("should render a toast message and redirect to homepage", async () => {
+      const mockRefreshUser = jest.fn().mockResolvedValue(undefined);
+
+      (useAuth as jest.Mock).mockReturnValue({
+        refreshUser: mockRefreshUser,
+        // ใส่ค่าอื่นๆ ที่จำเป็นต้องใช้ใน Component
+        loading: false,
+        user: null,
+      });
+
+      (api.auth.signIn as jest.Mock).mockResolvedValue({ success: true });
+
       render(<SignInForm />);
 
       const emailInput = screen.getByLabelText(/อีเมล/i);
@@ -97,10 +109,14 @@ describe("signIn Form Component", () => {
       await user.type(passwordInput, "Ppassword123456!");
       await user.click(submitButton);
 
-      expect(mockToast).toHaveBeenCalledWith("สำเร็จ", {
-        description: "เข้าสู่ระบบสำเร็จ",
+      await waitFor(() => {
+        expect(mockRefreshUser).toHaveBeenCalledTimes(1);
+
+        expect(mockToast).toHaveBeenCalledWith("สำเร็จ", {
+          description: "เข้าสู่ระบบสำเร็จ",
+        });
+        expect(mockRouter.push).toHaveBeenCalledWith(ROUTES.HOME);
       });
-      expect(mockRouter.push).toHaveBeenCalledWith(ROUTES.HOME);
     });
   });
 

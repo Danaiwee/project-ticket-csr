@@ -3,11 +3,24 @@ import MapWrapper from "@/components/MapWrapper";
 import StateSkeleton from "@/components/StateSkeleton";
 import { LOCATION_IMAGES } from "@/constants";
 import { DEFAULT_EMPTY } from "@/constants/empty";
+import { ROUTES } from "@/constants/routes";
 import { api } from "@/lib/api";
+import { getSession } from "@/lib/handler/session";
 import { BadgeCheck, Map, MapPin } from "lucide-react";
+import { cookies } from "next/headers";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }: RouteParams) {
+  const cookieStore = await cookies();
+  const cookieString = cookieStore.toString();
+
+  const authUser = await getSession(cookieString);
+
+  if (!authUser || authUser.role !== "ADMIN") {
+    redirect(ROUTES.HOME);
+  }
+
   const { id } = await params;
   const { data } = (await api.locations.getLocation(id)) as ActionResponse<{
     location: LocationData;

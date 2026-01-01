@@ -2,7 +2,10 @@ import AdminLocations from "@/components/AdminLocations";
 import HeaderBox from "@/components/HeaderBox";
 import LocalSearchbar from "@/components/LocalSearchbar";
 import { ROUTES } from "@/constants/routes";
+import { getSession } from "@/lib/handler/session";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "TicketSpace | Admin",
@@ -10,6 +13,14 @@ export const metadata: Metadata = {
 };
 
 const AdminPage = async () => {
+  const cookieStore = await cookies();
+  const cookieString = cookieStore.toString();
+
+  const authUser = await getSession(cookieString);
+
+  if (!authUser || authUser.role !== "ADMIN") {
+    redirect(ROUTES.HOME);
+  }
   return (
     <section className="w-full mx-auto max-w-7xl">
       <div className="flex h-full w-full flex-col gap-8 mt-14 font-kanit">
