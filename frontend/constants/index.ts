@@ -158,6 +158,14 @@ export const BOOKINGS = [
       typeName: "ถ้ำ",
       imageUrl: "/images/cave.jpg",
     },
+    user: {
+      id: "1234",
+      firstName: "danai",
+      lastName: "wee",
+      email: "danaiwee@email.com",
+      createdAt: "2025-12-30",
+      role: "User"
+    }
   },
   {
     id: "bk_002",
@@ -175,6 +183,14 @@ export const BOOKINGS = [
       typeName: "ชายหาด",
       imageUrl: "/images/beach.jpg",
     },
+     user: {
+      id: "1234",
+      firstName: "danai",
+      lastName: "wee",
+      email: "danaiwee@email.com",
+      createdAt: "2025-12-30",
+      role: "User"
+    }
   },
   {
     id: "bk_003",
@@ -192,6 +208,14 @@ export const BOOKINGS = [
       typeName: "โป่งน้ำพุร้อน",
       imageUrl: "/images/hot-spring.jpg",
     },
+     user: {
+      id: "1234",
+      firstName: "danai",
+      lastName: "wee",
+      email: "danaiwee@email.com",
+      createdAt: "2025-12-30",
+      role: "User"
+    }
   },
   {
     id: "bk_004",
@@ -209,5 +233,13 @@ export const BOOKINGS = [
       typeName: "เกาะ",
       imageUrl: "/images/island.jpg",
     },
+     user: {
+      id: "1234",
+      firstName: "danai",
+      lastName: "wee",
+      email: "danaiwee@email.com",
+      createdAt: "2025-12-30",
+      role: "User"
+    }
   },
 ];

@@ -14,10 +14,11 @@ describe("Booking Card Component", () => {
   });
 
   const bookingData = BOOKINGS[0];
+  const onSuccess = jest.fn();
 
   describe("Rendering", () => {
     it("should render the trigger field", () => {
-      render(<BookingCard booking={bookingData} />);
+      render(<BookingCard booking={bookingData} onSuccess={onSuccess} />);
 
       const id = bookingData.id.slice(-7).toUpperCase();
       const expectedDate = formatBookingDate(bookingData.bookingDate);
@@ -28,7 +29,7 @@ describe("Booking Card Component", () => {
     });
 
     it("should render the content field", async () => {
-      render(<BookingCard booking={bookingData} />);
+      render(<BookingCard booking={bookingData} onSuccess={onSuccess} />);
 
       const trigger = screen.getByRole("button", { name: /เลขที่จอง/i });
       await user.click(trigger);

@@ -52,6 +52,7 @@ jest.mock("@/context/AuthContext", () => ({
     user: null,
     loading: false,
     setUser: jest.fn(),
+    refreshUser: jest.fn().mockResolvedValue(undefined)
   })),
 }));
 

@@ -45,7 +45,7 @@ const BookingForm = ({ location }: BookingProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
   const [open, setOpen] = useState(false);
   const [available, setAvailable] = useState<number>(0);

@@ -104,6 +104,7 @@ describe("Signup Form Component", () => {
 
   describe("Form Success Handling", () => {
     it("should render a toast message and redirect to homepage", async () => {
+      (api.auth.signUp as jest.Mock).mockResolvedValueOnce({ success: false });
       render(<SignUpForm />);
 
       const firstNameInput = screen.getByLabelText(/ชื่อจริง/i);
