@@ -88,6 +88,8 @@ const AdminLocationBookings = ({
 
   const formattedDate = formatAdminDate(dateData);
   const numberOfBookings = bookingData?.length || 0;
+  const totalNumOfPeople =
+    bookingData?.reduce((sum, item) => sum + item.numOfPeople, 0) || 0;
 
   return (
     <>
@@ -97,9 +99,14 @@ const AdminLocationBookings = ({
             {`รายการจองสำหรับวันที่: ${formattedDate}`}
           </h1>
 
-          <p className="text-lg text-sky-600">
-            {`จำนวนการจองทั้งหมด ${numberOfBookings}/${limitBooking} ที่`}
-          </p>
+          <div className="flex flex-col items-center sm:gap-1">
+            <p className="text-lg text-gray-600">
+              {`จำนวนการจองทั้งหมด ${numberOfBookings} รายการ`}
+            </p>
+            <p className="text-lg text-sky-600">
+              {`จำนวนคนเข้าชมทั้งหมด ${totalNumOfPeople}/${limitBooking} ที่`}
+            </p>
+          </div>
         </div>
       </section>
       <section className="w-full max-4xl mt-5 sm:mt-20">
