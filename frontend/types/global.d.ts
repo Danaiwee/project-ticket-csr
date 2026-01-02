@@ -43,6 +43,7 @@ declare global {
     createdAt: Date;
     updatedAt: Date;
     location: LocationSummary;
+    user: User
   }
 
   interface ActionResponse<T = null> {

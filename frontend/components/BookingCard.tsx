@@ -9,13 +9,14 @@ import CancelBooking from "./CancelBooking";
 
 interface BookingProps {
   booking: Booking;
-  onSuccess: () => void
+  onSuccess: () => void;
 }
 
 const BookingCard = ({ booking, onSuccess }: BookingProps) => {
-  const { id, location, bookingDate, numOfPeople, totalPrice, remarks } =
+  const { id, location, bookingDate, numOfPeople, totalPrice, remarks, user } =
     booking;
   const { name } = location;
+  const { firstName, lastName, email } = user;
 
   const dateBooking = formatBookingDate(bookingDate);
   const formattedRemarks = remarks ? remarks : "-";
@@ -57,7 +58,34 @@ const BookingCard = ({ booking, onSuccess }: BookingProps) => {
           </div>
         </AccordionTrigger>
         <AccordionContent className="sm:mt-3">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-4">
+            <div className="w-full flex flex-col sm:flex-row sm:items-center justify-evenly px-0 font-kanit gap-1 pr-8">
+              <div className="flex-1 flex gap-1">
+                <h3 className="text-gray-900 text-[17px] font-semibold">
+                  ชื่อจริง:{" "}
+                </h3>
+                <p className="text-gray-500 text-[17px] uppercase">
+                  {firstName}
+                </p>
+              </div>
+
+              <div className="flex-1 flex gap-1">
+                <h3 className="text-gray-900 text-[17px] font-semibold">
+                  นามสกุล:{" "}
+                </h3>
+                <p className="text-gray-500 text-[17px] uppercase">
+                  {lastName}
+                </p>
+              </div>
+
+              <div className="flex-2 flex gap-1">
+                <h3 className="text-gray-900 text-[17px] font-semibold">
+                  อีเมล:{" "}
+                </h3>
+                <p className="text-gray-500 text-[17px] uppercase">{email}</p>
+              </div>
+            </div>
+
             <div className="w-full flex flex-col sm:flex-row sm:items-center justify-evenly px-0 font-kanit gap-1 pr-8">
               <div className="flex-1 flex gap-1">
                 <h3 className="text-gray-900 text-[17px] font-semibold">
@@ -83,7 +111,7 @@ const BookingCard = ({ booking, onSuccess }: BookingProps) => {
               </div>
             </div>
 
-            <div className="flex-1 w-full flex items-center justify-end mt-5 pr-4">
+            <div className="flex-1 w-full flex items-center justify-end pr-4">
               <CancelBooking bookingId={id} onSuccess={onSuccess} />
             </div>
           </div>

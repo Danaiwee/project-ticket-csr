@@ -4,7 +4,6 @@ import StateSkeleton from "@/components/StateSkeleton";
 import { LOCATION_IMAGES } from "@/constants";
 import { DEFAULT_EMPTY } from "@/constants/empty";
 import { api } from "@/lib/api";
-import { format } from "date-fns";
 import { BadgeCheck, Map, MapPin } from "lucide-react";
 import Image from "next/image";
 
