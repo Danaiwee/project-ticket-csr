@@ -4,9 +4,7 @@ import StateSkeleton from "@/components/StateSkeleton";
 import { LOCATION_IMAGES } from "@/constants";
 import { DEFAULT_EMPTY } from "@/constants/empty";
 import { api } from "@/lib/api";
-import { getSession } from "@/lib/handler/session";
 import { BadgeCheck, Map, MapPin } from "lucide-react";
-import { cookies } from "next/headers";
 import Image from "next/image";
 
 export async function generateMetadata({ params }: RouteParams) {
@@ -23,11 +21,7 @@ export async function generateMetadata({ params }: RouteParams) {
 
 const LocationPage = async ({ params }: RouteParams) => {
   const { id: locationId } = await params;
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore.toString();
-
-  const user = await getSession(cookieHeader);
-
+  
   const { success, data } = (await api.locations.getLocation(
     locationId
   )) as ActionResponse<{ location: LocationData }>;
@@ -97,7 +91,7 @@ const LocationPage = async ({ params }: RouteParams) => {
         </div>
 
         <div className="w-full sm:w-fit flex items-center justify-end">
-          <BookingForm location={location} user={user} />
+          <BookingForm location={location} />
         </div>
       </section>
       <section className="mt-10 flex flex-col gap-2 font-kanit max-w-2xl w-full">

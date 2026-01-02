@@ -35,15 +35,17 @@ import { LOCATION_PRICES } from "@/constants";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
 interface BookingProps {
   location: LocationData;
-  user: User | null | undefined;
 }
 
-const BookingForm = ({ location, user }: BookingProps) => {
+const BookingForm = ({ location }: BookingProps) => {
   const router = useRouter();
   const pathname = usePathname();
+
+  const { user, loading } = useAuth();
 
   const [open, setOpen] = useState(false);
   const [available, setAvailable] = useState<number>(0);
@@ -135,7 +137,9 @@ const BookingForm = ({ location, user }: BookingProps) => {
         return;
       }
 
-      throw new Error(res.error?.message || "เกิดข้อผิดพลาดขึ้น กรุณาลองใหม่อีกครั้งภายหลัง");
+      throw new Error(
+        res.error?.message || "เกิดข้อผิดพลาดขึ้น กรุณาลองใหม่อีกครั้งภายหลัง"
+      );
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast("ขออภัย", {
