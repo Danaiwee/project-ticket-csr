@@ -55,10 +55,6 @@ declare global {
     status?: number;
   }
 
-  interface ErrorResponse {
-  message?: string;
-  details?: Record<string, string[]>;
-}
 }
 
 export {};

@@ -241,6 +241,13 @@ export async function getUserBookings(req: Request, res: Response) {
               typeName: true,
             },
           },
+          user: {
+            select: {
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
         },
       }),
 

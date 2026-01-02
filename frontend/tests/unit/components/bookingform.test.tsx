@@ -7,26 +7,19 @@ import { mockRouter, mockToast, resetAllMocks } from "@/tests/mocks";
 import { AUTHUSER, LOCATIONS } from "@/constants";
 import { format } from "date-fns";
 
-import { useAuth } from "@/context/AuthContext";
-jest.mock("@/context/AuthContext");
-
 const userClient = userEvent.setup();
 
 describe("Create Booking Form", () => {
   beforeEach(() => {
     resetAllMocks();
-
-    (useAuth as jest.Mock).mockReturnValue({
-      user: AUTHUSER,
-      loading: false,
-    });
   });
 
   const location = LOCATIONS[0];
+  const user = AUTHUSER;
 
   describe("Rendering", () => {
     it("should display all the required field", async () => {
-      render(<BookingForm location={location} />);
+      render(<BookingForm location={location} user={user} />);
 
       const openButton = screen.getByRole("button", { name: /จองตั๋วเข้าชม/i });
       await userClient.click(openButton);
@@ -44,7 +37,7 @@ describe("Create Booking Form", () => {
 
   describe("Form Validation", () => {
     it("should render the error message if invalid input", async () => {
-      render(<BookingForm location={location} />);
+      render(<BookingForm location={location} user={user} />);
 
       const openButton = screen.getByRole("button", { name: /จองตั๋วเข้าชม/i });
       await userClient.click(openButton);
@@ -87,7 +80,7 @@ describe("Create Booking Form", () => {
 
       const newDate = format(new Date(), "yyyy-MM-dd");
 
-      render(<BookingForm location={location} />);
+      render(<BookingForm location={location} user={user} />);
 
       const openButton = screen.getByRole("button", { name: /จองตั๋วเข้าชม/i });
       await userClient.click(openButton);
@@ -126,7 +119,7 @@ describe("Create Booking Form", () => {
 
       const newDate = format(new Date(), "yyyy-MM-dd");
 
-      render(<BookingForm location={location} />);
+      render(<BookingForm location={location} user={user} />);
 
       const openButton = screen.getByRole("button", { name: /จองตั๋วเข้าชม/i });
       await userClient.click(openButton);
@@ -161,7 +154,7 @@ describe("Create Booking Form", () => {
 
       const newDate = format(new Date(), "yyyy-MM-dd");
 
-      render(<BookingForm location={location} />);
+      render(<BookingForm location={location} user={user} />);
 
       const openButton = screen.getByRole("button", { name: /จองตั๋วเข้าชม/i });
       await userClient.click(openButton);
@@ -197,7 +190,7 @@ describe("Create Booking Form", () => {
 
       const newDate = format(new Date(), "yyyy-MM-dd");
 
-      render(<BookingForm location={location} />);
+      render(<BookingForm location={location} user={user} />);
 
       const openButton = screen.getByRole("button", { name: /จองตั๋วเข้าชม/i });
       await userClient.click(openButton);

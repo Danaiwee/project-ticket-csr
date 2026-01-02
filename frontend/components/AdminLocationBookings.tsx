@@ -10,8 +10,8 @@ import DataRenderer from "./DataRenderer";
 import { DEFAULT_EMPTY } from "@/constants/empty";
 import BookingCard from "./BookingCard";
 import Pagination from "./Pagination";
+import { Loader2 } from "lucide-react";
 import { formatAdminDate } from "@/lib/utils";
-import Loading from "./Loading";
 
 interface AdminLocationBookingsProps {
   limitBooking: number;
@@ -33,11 +33,12 @@ const AdminLocationBookings = ({
   const dateData = date || format(new Date(), "yyyy-MM-dd");
 
   const [success, setSuccess] = useState(false);
-  const [bookingData, setBookingData] = useState<Booking[] | null>(null);
-  const [isNext, setIsNext] = useState(false);
-  const [dataError, setDataError] = useState<ErrorResponse | null | undefined>(
+  const [bookingData, setBookingData] = useState<Booking[] | null | undefined>(
     null
   );
+  const [isNext, setIsNext] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [dataError, setDataError] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchLocationBookings = async () => {
@@ -51,7 +52,7 @@ const AdminLocationBookings = ({
 
       if (success) {
         setSuccess(success);
-        setBookingData(data?.bookings || []);
+        setBookingData(data?.bookings);
         setIsNext(data?.isNext || false);
       } else {
         setDataError(error);
@@ -70,11 +71,17 @@ const AdminLocationBookings = ({
   }, [user, authLoading, router]);
 
   useEffect(() => {
-    setIsLoading(true);
     fetchLocationBookings();
   }, [user, page, date]);
 
-  if (authLoading || isLoading) return <Loading />;
+  if (authLoading || isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-100 w-full">
+        <Loader2 className="size-10 animate-spin text-sky-500" />
+        <p className="mt-2 text-gray-500">กำลังโหลดข้อมูล...</p>
+      </div>
+    );
+  }
 
   const isAdmin = user?.role === "ADMIN";
   if (!isAdmin) router.push(ROUTES.HOME);

@@ -46,6 +46,7 @@ jest.mock("@/lib/url", () => ({
   formUrlQuery: jest.fn(({ value }) => `?mocked-url-with-date=${value}`),
 }));
 
+
 jest.mock("@/context/AuthContext", () => ({
   useAuth: jest.fn(() => ({
     user: null,
@@ -53,3 +54,4 @@ jest.mock("@/context/AuthContext", () => ({
     setUser: jest.fn(),
   })),
 }));
+

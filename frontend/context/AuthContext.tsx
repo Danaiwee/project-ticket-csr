@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     } catch (error) {
       setUser(null);
-      console.log(error);
+      console.log(error)
     } finally {
       setLoading(false);
     }
@@ -39,9 +39,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user, loading, refreshUser: fetchUser, setUser }}
-    >
+    <AuthContext.Provider value={{ user, loading, refreshUser: fetchUser, setUser }}>
       {children}
     </AuthContext.Provider>
   );
