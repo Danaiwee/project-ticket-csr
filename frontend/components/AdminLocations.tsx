@@ -62,7 +62,7 @@ const AdminLocations = () => {
 
   useEffect(() => {
     fetchLocations();
-  }, [user, page]);
+  }, [user, page,query]);
 
 
   if (authLoading || isLoading) {
