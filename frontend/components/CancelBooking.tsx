@@ -17,10 +17,11 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
+import logger from "@/lib/logger";
 
 interface CancelBookingProps {
   bookingId: string;
-  onSuccess: () => void; 
+  onSuccess: () => void;
 }
 
 const CancelBooking = ({ bookingId, onSuccess }: CancelBookingProps) => {
@@ -51,7 +52,7 @@ const CancelBooking = ({ bookingId, onSuccess }: CancelBookingProps) => {
         description:
           error?.message || "ไม่สามารถเชื่อมต่อกับระบบได้ กรุณาลองใหม่ภายหลัง",
       });
-      console.log(error);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }

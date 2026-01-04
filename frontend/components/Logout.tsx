@@ -7,6 +7,7 @@ import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import logger from "@/lib/logger";
 
 const Logout = () => {
   const router = useRouter();
@@ -35,7 +36,7 @@ const Logout = () => {
         description:
           error?.message || "ไม่สามารถเชื่อมต่อกับระบบได้ กรุณาลองใหม่ภายหลัง",
       });
-      console.log(error);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }

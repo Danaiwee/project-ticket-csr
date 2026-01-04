@@ -73,6 +73,10 @@ declare global {
     bookings: Booking[];
     isNext: boolean;
   }
+
+  interface UpdateBookingLimitResponse {
+    limitBooking: number;
+  }
 }
 
 export {};

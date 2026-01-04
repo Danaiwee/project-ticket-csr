@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 
 import AdminSetting from "@/components/AdminSetting";
 import { mockRouter, mockToast, resetAllMocks } from "@/tests/mocks";
-import { format, addDays } from "date-fns";
 import { api } from "@/lib/api";
 
 const user = userEvent.setup();
@@ -15,11 +14,16 @@ describe("Admin Setting", () => {
 
   const locationId = "1234";
   const limitBooking = 10;
+  const setLimitBooking = jest.fn();
 
   describe("Redndering", () => {
     it("should render all the fields", async () => {
       render(
-        <AdminSetting locationId={locationId} limitBooking={limitBooking} />
+        <AdminSetting
+          locationId={locationId}
+          limitBooking={limitBooking}
+          setLimitBooking={setLimitBooking}
+        />
       );
 
       expect(screen.getByLabelText(/กรุณาเลือกวันที่/i)).toBeInTheDocument();
@@ -31,7 +35,11 @@ describe("Admin Setting", () => {
   describe("URL state management", () => {
     it("should update the url date with selected date", () => {
       render(
-        <AdminSetting locationId={locationId} limitBooking={limitBooking} />
+        <AdminSetting
+          locationId={locationId}
+          limitBooking={limitBooking}
+          setLimitBooking={setLimitBooking}
+        />
       );
 
       const triggerButton = screen.getByRole("button", {
@@ -56,7 +64,11 @@ describe("Admin Setting", () => {
       const mockUpdateLimit = api.admin.updateLimit as jest.Mock;
 
       render(
-        <AdminSetting locationId={locationId} limitBooking={limitBooking} />
+        <AdminSetting
+          locationId={locationId}
+          limitBooking={limitBooking}
+          setLimitBooking={setLimitBooking}
+        />
       );
 
       const limitInput = screen.getByLabelText(/จำนวนสูงสุดต่อวัน:/i);
@@ -76,7 +88,11 @@ describe("Admin Setting", () => {
       mockUpdateLimit.mockResolvedValueOnce({ success: true });
 
       render(
-        <AdminSetting locationId={locationId} limitBooking={limitBooking} />
+        <AdminSetting
+          locationId={locationId}
+          limitBooking={limitBooking}
+          setLimitBooking={setLimitBooking}
+        />
       );
 
       const limitInput = screen.getByLabelText(/จำนวนสูงสุดต่อวัน:/i);
@@ -102,7 +118,7 @@ describe("Admin Setting", () => {
       });
 
       render(
-        <AdminSetting locationId={locationId} limitBooking={limitBooking} />
+        <AdminSetting locationId={locationId} limitBooking={limitBooking}  setLimitBooking={setLimitBooking} />
       );
 
       const limitInput = screen.getByLabelText(/จำนวนสูงสุดต่อวัน:/i);

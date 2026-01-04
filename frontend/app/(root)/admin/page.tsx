@@ -1,15 +1,28 @@
+"use client";
+
 import AdminLocations from "@/components/AdminLocations";
 import HeaderBox from "@/components/HeaderBox";
+import Loading from "@/components/Loading";
 import LocalSearchbar from "@/components/LocalSearchbar";
 import { ROUTES } from "@/constants/routes";
-import { Metadata } from "next";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export const metadata: Metadata = {
-  title: "TicketSpace | Admin",
-  description: "ดูรายการและจัดการการจองสถานทีท่องเที่ยวทั้งหมด",
-};
+const AdminPage = () => {
+  const router = useRouter();
+  const { user, loading } = useAuth();
 
-const AdminPage = async () => {
+  useEffect(() => {
+    if (!loading && user?.role !== "ADMIN") {
+      router.push(ROUTES.HOME);
+    }
+  }, [user, loading, router]);
+
+  if (loading) return <Loading />;
+
+  if (user?.role !== "ADMIN") return null;
+
   return (
     <section className="w-full mx-auto max-w-7xl">
       <div className="flex h-full w-full flex-col gap-8 mt-14 font-kanit">

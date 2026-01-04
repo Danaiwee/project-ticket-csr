@@ -36,6 +36,7 @@ import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
+import logger from "@/lib/logger";
 
 interface BookingProps {
   location: LocationData;
@@ -95,7 +96,7 @@ const BookingForm = ({ location }: BookingProps) => {
       }
       throw new Error("มีข้อผิดพลาด");
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }, [selectDate, location.id]);
 
@@ -146,7 +147,7 @@ const BookingForm = ({ location }: BookingProps) => {
         description:
           error?.message || "ไม่สามารถเชื่อมต่อกับระบบได้ กรุณาลองใหม่ภายหลัง",
       });
-      console.log(error);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }

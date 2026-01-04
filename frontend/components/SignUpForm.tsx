@@ -16,11 +16,12 @@ import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { ROUTES } from "@/constants/routes";
 import { useAuth } from "@/context/AuthContext";
+import logger from "@/lib/logger";
 
 const SignUpForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const {refreshUser} = useAuth();
+  const { refreshUser } = useAuth();
 
   const callbackUrl = searchParams.get("callbackUrl");
 
@@ -57,7 +58,7 @@ const SignUpForm = () => {
         description:
           error?.message || "ไม่สามารถเชื่อมต่อกับระบบได้ กรุณาลองใหม่ภายหลัง",
       });
-      console.log(error);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }

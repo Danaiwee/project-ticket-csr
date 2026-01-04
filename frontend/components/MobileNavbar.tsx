@@ -43,22 +43,22 @@ const MobileNavbar = ({ user }: MobileNavbarProps) => {
           className="border-none bg-white w-75 font-kanit"
         >
           <SheetTitle asChild className="mt-3 px-4">
-            <Link href={ROUTES.HOME} className="flex items-center gap-1">
-              <Image
-                src="/icons/logo.png"
-                alt="Logo icon"
-                width={30}
-                height={30}
-              />
-              <div className="flex">
-                <h1 className="font-roboto text-xl font-bold text-gray-900">
-                  Ticket
-                </h1>
-                <h1 className="font-roboto text-xl font-bold text-sky-500">
-                  Space
-                </h1>
-              </div>
-            </Link>
+              <Link href={ROUTES.HOME} className="flex items-center gap-1">
+                <Image
+                  src="/icons/logo.png"
+                  alt="Logo icon"
+                  width={30}
+                  height={30}
+                />
+                <div className="flex">
+                  <h1 className="font-roboto text-xl font-bold text-gray-900">
+                    Ticket
+                  </h1>
+                  <h1 className="font-roboto text-xl font-bold text-sky-500">
+                    Space
+                  </h1>
+                </div>
+              </Link>
           </SheetTitle>
           <div className="h-screen flex flex-col items-between w-full">
             <SheetDescription className="flex flex-col gap-3 mt-10 px-4">

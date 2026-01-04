@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import Loading from "./Loading";
 import { ROUTES } from "@/constants/routes";
+import logger from "@/lib/logger";
 
 const AdminLocationDetails = () => {
   const params = useParams();
@@ -20,6 +21,7 @@ const AdminLocationDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [success, setSuccess] = useState(false);
   const [location, setLocation] = useState<LocationData | null>(null);
+  const [limitBookingData, setLimitBookingData] = useState(0);
 
   const locationId = params.id;
   if (!locationId) router.push(ROUTES.HOME);
@@ -34,9 +36,10 @@ const AdminLocationDetails = () => {
       if (success) {
         setLocation(data?.location || null);
         setSuccess(success);
+        setLimitBookingData(data?.location.limitBooking || 0);
       }
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -105,11 +108,12 @@ const AdminLocationDetails = () => {
           <AdminSetting
             locationId={locationId as string}
             limitBooking={limitBooking}
+            setLimitBooking={setLimitBookingData}
           />
         </div>
       </section>
 
-      <AdminLocationBookings limitBooking={limitBooking} />
+      <AdminLocationBookings limitBooking={limitBookingData} />
     </>
   );
 };

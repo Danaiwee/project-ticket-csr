@@ -62,3 +62,33 @@ const handleError = (error: unknown, res: Response) => {
 };
 
 export default handleError;
+
+
+/*Raw Zod Error object example
+  [
+  {
+    "code": "too_small",
+    "minimum": 6,
+    "type": "string",
+    "inclusive": true,
+    "exact": false,
+    "message": "Password must be at least 6 characters long.",
+    "path": ["password"]
+  },
+  {
+    "code": "invalid_string",
+    "validation": "email",
+    "message": "Please provide a valid email address.",
+    "path": ["email"]
+  }
+]
+
+after flattern
+{
+  formErrors: [], // Error ที่เกิดกับทั้งฟอร์ม (ไม่ได้ระบุฟิลด์)
+  fieldErrors: {  // <--- นี่คือสิ่งที่คุณดึงไปใช้!
+    password: ["Password must be at least 6 characters long."],
+    email: ["Please provide a valid email address."]
+  }
+}
+*/

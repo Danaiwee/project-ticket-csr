@@ -27,14 +27,15 @@ const HomePage = async ({ searchParams }: RouteParams) => {
   return (
     <section className="w-full h-full">
       <div className="relative w-full h-full">
-        <Image
-          src="/images/background2.png"
-          alt="Hero image"
-          width={1000}
-          height={1000}
-          priority
-          className="w-full h-70 object-cover object-center"
-        />
+        <div className="relative w-full h-70">
+          <Image
+            src="/images/background2.png"
+            alt="Hero image"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+        </div>
 
         <div className="relative -top-8 w-full max-w-4xl mx-auto px-4">
           <LocalSearchbar route={ROUTES.HOME} placeholder="ค้นหาชื่อสถานที่" />

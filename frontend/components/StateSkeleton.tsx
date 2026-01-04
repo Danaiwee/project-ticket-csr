@@ -23,13 +23,16 @@ const StateSkeleton = ({
 }: StateSkeletonProps) => {
   return (
     <div className="mt-16 flex w-full flex-col items-center justify-center sm:mt-10">
-      <Image
-        src={image.light}
-        alt={image.alt}
-        width={300}
-        height={300}
-        className="block object-contain"
-      />
+      <div className="relative size-60 sm:size-70">
+        <Image
+          src={image.light}
+          alt={image.alt}
+          fill
+          priority
+          sizes="(max-width: 640px) 240px, 320px"
+          className="object-contain"
+        />
+      </div>
 
       <h2 className="h2-bold mt-8 font-kanit text-xl">{title}</h2>
       <p className="my-3.5 max-w-md text-center text-xl font-kanit">

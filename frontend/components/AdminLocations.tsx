@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import DataRenderer from "./DataRenderer";
 import LocationCard from "./LocationCard";
 import Pagination from "./Pagination";
+import logger from "@/lib/logger";
 
 const AdminLocations = () => {
   const router = useRouter();
@@ -48,7 +49,7 @@ const AdminLocations = () => {
         setDataError(error);
       }
     } catch (err) {
-      console.log(err);
+      logger.error(err);
     } finally {
       setIsLoading(false);
     }

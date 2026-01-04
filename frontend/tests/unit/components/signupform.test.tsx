@@ -1,4 +1,4 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import SignUpForm from "@/components/SignUpForm";
@@ -104,7 +104,7 @@ describe("Signup Form Component", () => {
 
   describe("Form Success Handling", () => {
     it("should render a toast message and redirect to homepage", async () => {
-      (api.auth.signUp as jest.Mock).mockResolvedValueOnce({ success: false });
+      (api.auth.signUp as jest.Mock).mockResolvedValueOnce({ success: true });
       render(<SignUpForm />);
 
       const firstNameInput = screen.getByLabelText(/ชื่อจริง/i);
@@ -144,10 +144,12 @@ describe("Signup Form Component", () => {
       await user.type(passwordInput, "Ppassword123456!");
       await user.click(submitButton);
 
-      expect(mockToast).toHaveBeenCalledWith("เกิดข้อผิดพลาด", {
-        description: "กรุณาตรวจสอบข้อมูลอีกครั้ง",
+      await waitFor(() => {
+        expect(mockToast).toHaveBeenCalledWith("เกิดข้อผิดพลาด", {
+          description: "กรุณาตรวจสอบข้อมูลอีกครั้ง",
+        });
+        expect(mockRouter.push).not.toHaveBeenCalled();
       });
-      expect(mockRouter.push).not.toHaveBeenCalled();
     });
 
     it("should display the error message from API", async () => {
@@ -172,10 +174,12 @@ describe("Signup Form Component", () => {
       await user.type(passwordInput, "Ppassword123456!");
       await user.click(submitButton);
 
-      expect(mockToast).toHaveBeenCalledWith("เกิดข้อผิดพลาด", {
-        description: "Internal server error",
+      await waitFor(() => {
+        expect(mockToast).toHaveBeenCalledWith("เกิดข้อผิดพลาด", {
+          description: "Internal server error",
+        });
+        expect(mockRouter.push).not.toHaveBeenCalled();
       });
-      expect(mockRouter.push).not.toHaveBeenCalled();
     });
   });
 });

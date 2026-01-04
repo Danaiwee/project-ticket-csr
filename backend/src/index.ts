@@ -7,11 +7,11 @@ import authRoutes from "./routes/auth.route.js";
 import locationRoutes from "./routes/location.route.js";
 import bookingRoutes from "./routes/booking.route.js";
 import adminRoutes from "./routes/admin.route.js";
+import logger from "./lib/logger.js";
 
 dotenv.config();
 
 const app = express();
-app.set("trust proxy", 1);
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json({ limit: "4mb" }));
@@ -41,5 +41,5 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`[server]: Server is running at http://localhost:${PORT}`);
+  logger.info(`[server]: Server is running at http://localhost:${PORT}`);
 });

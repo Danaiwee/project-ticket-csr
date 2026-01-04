@@ -16,13 +16,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery } from "@/lib/url";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
+import logger from "@/lib/logger";
 
 interface AdminSettingProps {
   locationId: string;
   limitBooking: number;
+  setLimitBooking: (limit: number) => void;
 }
 
-function AdminSetting({ locationId, limitBooking }: AdminSettingProps) {
+function AdminSetting({
+  locationId,
+  limitBooking,
+  setLimitBooking,
+}: AdminSettingProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -55,11 +61,15 @@ function AdminSetting({ locationId, limitBooking }: AdminSettingProps) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await api.admin.updateLimit(locationId, limitNumber);
+      const res = (await api.admin.updateLimit(
+        locationId,
+        limitNumber
+      )) as ActionResponse<UpdateBookingLimitResponse>;
 
       if (res.success) {
         toast("สำเร็จ", { description: "ทำการอัพเดทข้อมูลในระบบสำเร็จ" });
 
+        setLimitBooking(res.data?.limitBooking || 0);
         router.refresh();
         return;
       }
@@ -70,7 +80,7 @@ function AdminSetting({ locationId, limitBooking }: AdminSettingProps) {
       toast("ขออภัย", {
         description: error.message || "ระบบไม่สามารถอัพเดทข้อมูลนี้",
       });
-      console.log(error);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }

@@ -7,6 +7,7 @@ import {
   mockUserPathname,
   mockUseSearchParams,
 } from "./tests/mocks";
+import { AUTHUSER } from "./constants";
 
 jest.mock("next/navigation", () => ({
   useRouter: mockUseRouter,
@@ -46,13 +47,21 @@ jest.mock("@/lib/url", () => ({
   formUrlQuery: jest.fn(({ value }) => `?mocked-url-with-date=${value}`),
 }));
 
-
 jest.mock("@/context/AuthContext", () => ({
   useAuth: jest.fn(() => ({
-    user: null,
+    user: AUTHUSER,
     loading: false,
     setUser: jest.fn(),
-    refreshUser: jest.fn().mockResolvedValue(undefined)
+    refreshUser: jest.fn().mockResolvedValue(undefined),
   })),
 }));
 
+jest.mock("@/lib/logger", () => ({
+  __esModule: true,
+  default: {
+    info: jest.fn(),
+    error: jest.fn(),
+    warn: jest.fn(),
+    debug: jest.fn(),
+  },
+}));

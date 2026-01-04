@@ -12,6 +12,7 @@ import BookingCard from "./BookingCard";
 import Pagination from "./Pagination";
 import { Loader2 } from "lucide-react";
 import { formatAdminDate } from "@/lib/utils";
+import logger from "@/lib/logger";
 
 interface AdminLocationBookingsProps {
   limitBooking: number;
@@ -58,7 +59,7 @@ const AdminLocationBookings = ({
         setDataError(error);
       }
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     } finally {
       setIsLoading(false);
     }

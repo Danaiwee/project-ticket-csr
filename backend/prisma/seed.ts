@@ -5,11 +5,11 @@ import csv from "csv-parser";
 import { fileURLToPath } from "url";
 import { prisma } from "../src/lib/prisma.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url); //file:///D:/project/seed.ts >> D:\project\seed.ts 
+const __dirname = path.dirname(__filename); // >> find the folder D:\project\seed.ts >> D:\project
 
 async function syncData() {
-  const filePath = path.join(__dirname, "../data/locations.csv");
+  const filePath = path.join(__dirname, "../data/locations.csv"); // target data from this file
   const results: any[] = [];
 
   fs.createReadStream(filePath, { encoding: "utf-8" })

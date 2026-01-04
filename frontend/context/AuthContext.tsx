@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import logger from "@/lib/logger";
 
 interface AuthContextType {
   user: User | null;
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       setLoading(true);
       const res = await api.auth.getLoggedInUser();
-      // res is returned from your fetchHandler
+      // res is returned from fetchHandler
       if (res && !("error" in res)) {
         setUser(res as unknown as User);
       } else {
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     } catch (error) {
       setUser(null);
-      console.log(error)
+      logger.error(error);
     } finally {
       setLoading(false);
     }
@@ -39,7 +40,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, refreshUser: fetchUser, setUser }}>
+    <AuthContext.Provider
+      value={{ user, loading, refreshUser: fetchUser, setUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
