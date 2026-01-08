@@ -63,8 +63,7 @@ const AdminLocations = () => {
 
   useEffect(() => {
     fetchLocations();
-  }, [user, page,query]);
-
+  }, [user, page, query]);
 
   if (authLoading || isLoading) {
     return (
@@ -89,7 +88,7 @@ const AdminLocations = () => {
         render={(locationData) => (
           <div className="mt-12 flex flex-wrap gap-5">
             {locationData.map((location: LocationData) => (
-              <Locatio  nCard key={location.id} location={location} isAdmin />
+              <LocationCard key={location.id} location={location} isAdmin />
             ))}
           </div>
         )}
