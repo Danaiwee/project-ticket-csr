@@ -112,11 +112,11 @@ async function generateTokenAndSetCookie(userId: String, res: Response) {
 
   const isProduction = process.env.NODE_ENV === "production";
 
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? "none" : "lax",
-    maxAge: 24 * 60 * 60 * 1000,
-    path: "/",
-  });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+      path: "/",
+    });
 }

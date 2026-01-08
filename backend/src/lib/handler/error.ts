@@ -92,3 +92,22 @@ after flattern
   }
 }
 */
+
+
+/*Example of logger logger.error({ err: error }, `API Error: ${error.message}`);
+
+  {
+  "level": 50,
+  "time": 1704672000000,
+  "pid": 1234,
+  "hostname": "my-app-server",
+  "msg": "API Error: จำนวนที่ว่างไม่พอสำหรับการจอง",
+  "err": {
+    "type": "RequestError",
+    "message": "จำนวนที่ว่างไม่พอสำหรับการจอง",
+    "stack": "RequestError: จำนวนที่ว่างไม่พอสำหรับการจอง\n    at handleFormSubmit (BookingForm.tsx:120:15)...",
+    "statusCode": 400,
+    "errors": ["not_enough_seats"]
+  }
+}
+*/

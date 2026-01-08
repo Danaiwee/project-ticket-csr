@@ -15,9 +15,9 @@ async function syncData() {
   fs.createReadStream(filePath, { encoding: "utf-8" })
     .pipe(
       csv({
-        // 💡 1. ข้ามบรรทัดแรกของไฟล์ (ที่เป็นภาษาไทยที่มีปัญหา)
+        // 💡 1. skip first row
         skipLines: 1,
-        // 💡 2. กำหนดชื่อ Key ภาษาอังกฤษเองตามลำดับคอลัมน์ในไฟล์
+        // 💡 2. change headers to Eng
         headers: [
           "index",
           "name",
@@ -36,14 +36,14 @@ async function syncData() {
     )
     .on("data", (data) => results.push(data))
     .on("end", async () => {
-      console.log(`🚀 กำลังนำเข้า ${results.length} รายการ...`);
+      console.log(`Importing ${results.length} lists...`);
 
-      // ล้างข้อมูลเก่า
+      // Clear database
       await prisma.location.deleteMany({});
 
       for (const row of results) {
         try {
-          // 💡 3. เรียกใช้ผ่าน Key ภาษาอังกฤษที่เราตั้งไว้ (ไม่ต้องกลัวสะกดผิดหรือ BOM)
+          // 💡 Insert data with according to Eng headers
           await prisma.location.upsert({
             where: { name: row.name.trim() },
             update: {},
@@ -64,7 +64,7 @@ async function syncData() {
             },
           });
         } catch (error) {
-          console.error(`❌ ขัดข้องที่: ${row.name}`, error.message);
+          console.error(`Error Field: ${row.name}`, error.message);
         }
       }
       console.log("✅ Import successfully!");

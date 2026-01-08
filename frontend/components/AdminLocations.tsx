@@ -89,7 +89,7 @@ const AdminLocations = () => {
         render={(locationData) => (
           <div className="mt-12 flex flex-wrap gap-5">
             {locationData.map((location: LocationData) => (
-              <LocationCard key={location.id} location={location} isAdmin />
+              <Locatio  nCard key={location.id} location={location} isAdmin />
             ))}
           </div>
         )}

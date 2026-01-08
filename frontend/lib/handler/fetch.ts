@@ -15,7 +15,7 @@ export async function fetchHandler<T>(
   options: FetchOptions = {}
 ): Promise<ActionResponse<T>> {
   const {
-    timeout = 10000, // ปรับลดลงตามความเหมาะสม (เช่น 10 วินาที)
+    timeout = 10000, // 10 sec
     headers: customHeaders = {},
     ...restOptions
   } = options;
