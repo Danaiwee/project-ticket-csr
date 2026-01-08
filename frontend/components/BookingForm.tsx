@@ -189,7 +189,7 @@ const BookingForm = ({ location }: BookingProps) => {
             )}
           >
             {isFull
-              ? "ขออถัย วันที่คุณเลือกมีคนจองเต็มแล้ว!!"
+              ? "ขออภัย วันที่คุณเลือกมีคนจองเต็มแล้ว!!"
               : `ขณะนี้มียังมีที่ว่างในวันที่ท่านเลือก: ${available} ที่`}
           </DialogDescription>
         </DialogHeader>
@@ -242,7 +242,7 @@ const BookingForm = ({ location }: BookingProps) => {
                         }
                         onSelect={(date) => {
                           if (date) {
-                            const formattedDate = format(date, "yyyy-MM-dd");
+                            const formattedDate = format(date, "yyyy-MM-dd"); //Thu Jan 08 2026 00:00:00 GMT+0700 >> 2026-01-08
                             field.onChange(formattedDate);
                           }
                         }}
